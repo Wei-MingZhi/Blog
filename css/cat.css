@@ -73,3 +73,7 @@ body::-webkit-scrollbar {
         background-color: transparent
     }
 }
+
+#drone .container {
+    overflow: hidden;
+}
