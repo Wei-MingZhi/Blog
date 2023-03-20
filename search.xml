@@ -4,59 +4,9 @@
   
     
     <entry>
-      <title>Java关于集合</title>
-      <link href="/post/b32f0afe.html"/>
-      <url>/post/b32f0afe.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> Java </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 集合 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>深入理解高并发编程</title>
-      <link href="/post/b32f0afe.html"/>
-      <url>/post/b32f0afe.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> Java </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 高并发 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Java中的常用类</title>
-      <link href="/post/b32f0afe.html"/>
-      <url>/post/b32f0afe.html</url>
+      <link href="/post/javacgyl.html"/>
+      <url>/post/javacgyl.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -79,9 +29,59 @@
     
     
     <entry>
+      <title>深入理解高并发编程</title>
+      <link href="/post/gbfhtml.html"/>
+      <url>/post/gbfhtml.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 高并发 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Java关于集合</title>
+      <link href="/post/javajh.html"/>
+      <url>/post/javajh.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 集合 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>JVM知识</title>
-      <link href="/post/b32f0afe.html"/>
-      <url>/post/b32f0afe.html</url>
+      <link href="/post/javajvmdc.html"/>
+      <url>/post/javajvmdc.html</url>
       
         <content type="html"><![CDATA[<h1 id="JVM的底层原理"><a href="#JVM的底层原理" class="headerlink" title="JVM的底层原理"></a>JVM的底层原理</h1><p><strong>引言：什么是JVM？</strong></p><p><strong>JVM</strong> 在整个jdk（Java运行环境）中处于最底层，负责与操作系统的交互，用来屏蔽操作系统环境，提供了一个完整的Java运行环境，也就是虚拟计算机，操作系统装入JVM是通过jdk中的Java.exe来完成的</p><h2 id="一、JVM内存区域模型"><a href="#一、JVM内存区域模型" class="headerlink" title="一、JVM内存区域模型"></a>一、JVM内存区域模型</h2>]]></content>
       
