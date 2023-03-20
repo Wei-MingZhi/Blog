@@ -4,6 +4,256 @@
   
     
     <entry>
+      <title>数组</title>
+      <link href="/post/javasz.html"/>
+      <url>/post/javasz.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数组 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>异常机制</title>
+      <link href="/post/javaycjz.html"/>
+      <url>/post/javaycjz.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 异常 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>IO流</title>
+      <link href="/post/javasio.html"/>
+      <url>/post/javasio.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IO </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>控制语句</title>
+      <link href="/post/javakzyj.html"/>
+      <url>/post/javakzyj.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 控制语句 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Java基础</title>
+      <link href="/post/javajczs.html"/>
+      <url>/post/javajczs.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>java容器</title>
+      <link href="/post/javarq.html"/>
+      <url>/post/javarq.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 容器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>面向对象</title>
+      <link href="/post/javamxdx.html"/>
+      <url>/post/javamxdx.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 面向对象 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>网络编程</title>
+      <link href="/post/javawlbc.html"/>
+      <url>/post/javawlbc.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络编程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>多线程和并发编程</title>
+      <link href="/post/javaxc.html"/>
+      <url>/post/javaxc.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 线程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>设计模式</title>
+      <link href="/post/javasjms.html"/>
+      <url>/post/javasjms.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Java中的常用类</title>
       <link href="/post/javacgyl.html"/>
       <url>/post/javacgyl.html</url>
@@ -58,7 +308,7 @@
       <link href="/post/gbfhtml.html"/>
       <url>/post/gbfhtml.html</url>
       
-        <content type="html"><![CDATA[<h1 id="深入理解高并发编程"><a href="#深入理解高并发编程" class="headerlink" title="深入理解高并发编程"></a>深入理解高并发编程</h1><h2 id="一、并发编程的基本概念"><a href="#一、并发编程的基本概念" class="headerlink" title="一、并发编程的基本概念"></a>一、并发编程的基本概念</h2><h3 id="1、-程序"><a href="#1、-程序" class="headerlink" title="1、 程序"></a>1、 程序</h3><p>程序是人为编写或由某种方式自动生成的代码，能够保存在文件中，程序本身是静态的。如果要运行程序，则需要将程序加载到内存中，通过编译器或解释器翻译成计算机能够理解的运行方式</p><h3 id="2、进程和线程"><a href="#2、进程和线程" class="headerlink" title="2、进程和线程"></a>2、进程和线程</h3><p>现代操做系统在启动一个程序时，往往会为这个程序创建一个进程，例如在启动一个java程序时，就会创建一个JVM线程，在启动一个python程序时，就会启动一个人python进程</p><p>进程是操作系统进行资源分配的最小单位，在一个进程中可以创建多个线程</p><p>线程是比进程粒度更小的能够独立运行的基本单位，也是CPU调度的最小单元，被称为轻量级的进程。在一个进程中可以创建多个线程，各个线程拥有独立的局部变量、线程堆栈、和程序计数器等，能够访问共享的资源</p><p><strong>进程与线程的本质区别</strong></p><ol><li>进程是操作系统分配资源的最小单位，线程是CPU调度的最小单元</li><li>一个进程中可以包含多个线程，一个线程只能属于一个进程</li><li>进程与进程之间是互相独立的，进程内部的线程之间并不完全独立，可以共享进程的堆内存，方法区内存和系统资源</li><li>进程上下文的切换要比线程的上下文切换要慢很多</li><li>进程是存在地址空间的，而线程本身无地址空间，线程的地址空间是包含在进程中的</li><li>某个进程发生异常不会对其他进程造成影响，某个线程发生异常可能会对所在的进程中的其他线程造成影响</li></ol><h3 id="3、线程组"><a href="#3、线程组" class="headerlink" title="3、线程组"></a>3、线程组</h3><p>线程组可以同时管理多个线程。在现实场景中，如果系统创建的线程比较多，创建的线程功能也比较明确，就可以将具有相同功能的线程放到同一个线程组中</p><p><strong>线程组的使用：</strong></p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span> 测试线程组的使用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadGroupTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 创建线程组 ThreadGroup</span></span><br><span class="line">        <span class="type">ThreadGroup</span> <span class="variable">threadGroup</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadGroup</span>(<span class="string">&quot;threadGroupTest&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 创建thread1 对象实例，并在构造方法中传入线程组和线程名称</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(threadGroup, () -&gt; &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">groupName</span> <span class="operator">=</span> Thread.currentThread().getThreadGroup().getName();</span><br><span class="line">            <span class="type">String</span> <span class="variable">threadName</span> <span class="operator">=</span> Thread.currentThread().getName();</span><br><span class="line">            System.out.println(groupName + <span class="string">&quot;---1---&quot;</span> +threadName);</span><br><span class="line">        &#125;,<span class="string">&quot;thread1&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建thread2 对象实例，并在构造方法中传入线程组和线程名称</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(threadGroup, () -&gt; &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">groupName</span> <span class="operator">=</span> Thread.currentThread().getThreadGroup().getName();</span><br><span class="line">            <span class="type">String</span> <span class="variable">threadName</span> <span class="operator">=</span> Thread.currentThread().getName();</span><br><span class="line"></span><br><span class="line">            System.out.println(groupName + <span class="string">&quot;---2---&quot;</span> + threadName);</span><br><span class="line">        &#125;,<span class="string">&quot;thread2&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 启动线程 Thread1</span></span><br><span class="line">        thread1.start();</span><br><span class="line">        <span class="comment">// 启动线程 Thread2</span></span><br><span class="line">        thread2.start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>结果输出：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">threadGroupTest---1---thread1</span><br><span class="line">threadGroupTest---2---thread2</span><br></pre></td></tr></table></figure><p><strong>现实场景中可以根据线程的不同功能将其划分在不同的线程组中</strong></p><h3 id="4-用户线程和守护线程"><a href="#4-用户线程和守护线程" class="headerlink" title="4.用户线程和守护线程"></a>4.用户线程和守护线程</h3>]]></content>
+        <content type="html"><![CDATA[<h1 id="深入理解高并发编程"><a href="#深入理解高并发编程" class="headerlink" title="深入理解高并发编程"></a>深入理解高并发编程</h1><h2 id="一、并发编程的基本概念"><a href="#一、并发编程的基本概念" class="headerlink" title="一、并发编程的基本概念"></a>一、并发编程的基本概念</h2><h3 id="1、-程序"><a href="#1、-程序" class="headerlink" title="1、 程序"></a>1、 程序</h3><p>程序是人为编写或由某种方式自动生成的代码，能够保存在文件中，程序本身是静态的。如果要运行程序，则需要将程序加载到内存中，通过编译器或解释器翻译成计算机能够理解的运行方式</p><h3 id="2、进程和线程"><a href="#2、进程和线程" class="headerlink" title="2、进程和线程"></a>2、进程和线程</h3><p>现代操做系统在启动一个程序时，往往会为这个程序创建一个进程，例如在启动一个java程序时，就会创建一个JVM线程，在启动一个python程序时，就会启动一个人python进程</p><p>进程是操作系统进行资源分配的最小单位，在一个进程中可以创建多个线程</p><p>线程是比进程粒度更小的能够独立运行的基本单位，也是CPU调度的最小单元，被称为轻量级的进程。在一个进程中可以创建多个线程，各个线程拥有独立的局部变量、线程堆栈、和程序计数器等，能够访问共享的资源</p><p><strong>进程与线程的本质区别</strong></p><ol><li>进程是操作系统分配资源的最小单位，线程是CPU调度的最小单元</li><li>一个进程中可以包含多个线程，一个线程只能属于一个进程</li><li>进程与进程之间是互相独立的，进程内部的线程之间并不完全独立，可以共享进程的堆内存，方法区内存和系统资源</li><li>进程上下文的切换要比线程的上下文切换要慢很多</li><li>进程是存在地址空间的，而线程本身无地址空间，线程的地址空间是包含在进程中的</li><li>某个进程发生异常不会对其他进程造成影响，某个线程发生异常可能会对所在的进程中的其他线程造成影响</li></ol><h3 id="3、线程组"><a href="#3、线程组" class="headerlink" title="3、线程组"></a>3、线程组</h3><p>线程组可以同时管理多个线程。在现实场景中，如果系统创建的线程比较多，创建的线程功能也比较明确，就可以将具有相同功能的线程放到同一个线程组中</p><p><strong>线程组的使用：</strong></p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span> 测试线程组的使用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadGroupTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 创建线程组 ThreadGroup</span></span><br><span class="line">        <span class="type">ThreadGroup</span> <span class="variable">threadGroup</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadGroup</span>(<span class="string">&quot;threadGroupTest&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 创建thread1 对象实例，并在构造方法中传入线程组和线程名称</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(threadGroup, () -&gt; &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">groupName</span> <span class="operator">=</span> Thread.currentThread().getThreadGroup().getName();</span><br><span class="line">            <span class="type">String</span> <span class="variable">threadName</span> <span class="operator">=</span> Thread.currentThread().getName();</span><br><span class="line">            System.out.println(groupName + <span class="string">&quot;---1---&quot;</span> +threadName);</span><br><span class="line">        &#125;,<span class="string">&quot;thread1&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建thread2 对象实例，并在构造方法中传入线程组和线程名称</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(threadGroup, () -&gt; &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">groupName</span> <span class="operator">=</span> Thread.currentThread().getThreadGroup().getName();</span><br><span class="line">            <span class="type">String</span> <span class="variable">threadName</span> <span class="operator">=</span> Thread.currentThread().getName();</span><br><span class="line"></span><br><span class="line">            System.out.println(groupName + <span class="string">&quot;---2---&quot;</span> + threadName);</span><br><span class="line">        &#125;,<span class="string">&quot;thread2&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 启动线程 Thread1</span></span><br><span class="line">        thread1.start();</span><br><span class="line">        <span class="comment">// 启动线程 Thread2</span></span><br><span class="line">        thread2.start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>结果输出：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">threadGroupTest---1---thread1</span><br><span class="line">threadGroupTest---2---thread2</span><br></pre></td></tr></table></figure><p><strong>现实场景中可以根据线程的不同功能将其划分在不同的线程组中</strong></p><h3 id="4、用户线程和守护线程"><a href="#4、用户线程和守护线程" class="headerlink" title="4、用户线程和守护线程"></a>4、用户线程和守护线程</h3>]]></content>
       
       
       <categories>
