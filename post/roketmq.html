@@ -1,0 +1,452 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><script>((function() {var callbacks = [],timeLimit = 50,open = false;setInterval(loop, 1);return {addListener: function(fn) {callbacks.push(fn);},cancleListenr: function(fn) {callbacks = callbacks.filter(function(v) {return v !== fn;});}}
+function loop() {var startTime = new Date();debugger;if (new Date() - startTime > timeLimit) {if (!open) {callbacks.forEach(function(fn) {fn.call(null);});}open = true;window.stop();alert('你真坏，请关闭控制台！');document.body.innerHTML = "";} else {open = false;}}})()).addListener(function() {window.location.reload();});</script><script>function toDevtools(){
+  let num = 0;
+  let devtools = new Date();
+  devtools.toString = function() {
+    num++;
+    if (num > 1) {
+        alert('你真坏，请关闭控制台！')
+        window.location.href = "about:blank"
+        blast();
+    }
+  }
+  console.log('', devtools);
+}
+toDevtools();
+</script><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>RocketMQ | 魏铭志の博客</title><meta name="author" content="魏铭志の博客"><meta name="copyright" content="魏铭志の博客"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="RocketMQ一、MQ(Message Queue)介绍MQ（Message Queue）消息队列，是基础数据结构中**”先进先出”**的一种数据结构。一般用来解决应用解耦，异步消息，流量削峰等问题，实现高性能，高可用，可伸缩和最终一致性架构。 其主要场景主要包含一下三个方面  应用解耦 系统的耦合性越高，容错性就越低。    ​		  流量削峰 应用系统如果遇到系统请求流量的瞬间猛增，有可能会">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RocketMQ">
+<meta property="og:url" content="https://wei-mingzhi.github.io/post/roketmq.html">
+<meta property="og:site_name" content="魏铭志の博客">
+<meta property="og:description" content="RocketMQ一、MQ(Message Queue)介绍MQ（Message Queue）消息队列，是基础数据结构中**”先进先出”**的一种数据结构。一般用来解决应用解耦，异步消息，流量削峰等问题，实现高性能，高可用，可伸缩和最终一致性架构。 其主要场景主要包含一下三个方面  应用解耦 系统的耦合性越高，容错性就越低。    ​		  流量削峰 应用系统如果遇到系统请求流量的瞬间猛增，有可能会">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2022/06/05/629c5257753d1.png">
+<meta property="article:published_time" content="2023-03-22T17:32:54.000Z">
+<meta property="article:modified_time" content="2023-03-22T17:19:57.249Z">
+<meta property="article:author" content="魏铭志の博客">
+<meta property="article:tag" content="RocketMQ">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bu.dusays.com/2022/06/05/629c5257753d1.png"><link rel="shortcut icon" href="https://pic.imgdb.cn/item/6416a424a682492fcc69a396.jpg"><link rel="canonical" href="https://wei-mingzhi.github.io/post/roketmq.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 魏铭志の博客","link":"链接: ","source":"来源: 魏铭志の博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'RocketMQ',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2023-03-23 01:19:57'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><style type="text/css">#toggle-sidebar {bottom: 80px}</style><link rel="stylesheet" href="/css/universe.css"><script async src="/js/custom.js"></script><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/css/plane_v2.css"><link rel="stylesheet" href="/css/cat.css"><div id="myscoll"></div><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pic.imgdb.cn/item/6416a424a682492fcc69a396.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad faa-float animated"></i><span> 游戏</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fab fa-youtube faa-float animated"></i><span> 番剧</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.imgdb.cn/item/64172d88a682492fcc670e1b.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="魏铭志の博客"><span class="site-name">魏铭志の博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad faa-float animated"></i><span> 游戏</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fab fa-youtube faa-float animated"></i><span> 番剧</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">RocketMQ</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-22T17:32:54.000Z" title="发表于 2023-03-23 01:32:54">2023-03-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-22T17:19:57.249Z" title="更新于 2023-03-23 01:19:57">2023-03-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/MQ/">MQ</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h1><h2 id="一、MQ-Message-Queue-介绍"><a href="#一、MQ-Message-Queue-介绍" class="headerlink" title="一、MQ(Message Queue)介绍"></a>一、MQ(Message Queue)介绍</h2><p><strong>MQ</strong>（Message Queue）消息队列，是基础数据结构中**”先进先出”**的一种数据结构。一般用来解决应用解耦，异步消息，流量削峰等问题，实现高性能，高可用，可伸缩和最终一致性架构。</p>
+<p>其主要场景主要包含一下三个方面</p>
+<ul>
+<li><p><strong>应用解耦</strong></p>
+<p>系统的耦合性越高，容错性就越低。</p>
+<p><img src="https://pic.imgdb.cn/item/641b0421a682492fccf143f9.jpg" alt="MQ应用解耦"></p>
+</li>
+</ul>
+<p>​		<img src="https://pic.imgdb.cn/item/641b049ba682492fccf25deb.jpg" alt="MQ应用解耦"></p>
+<ul>
+<li><p><strong>流量削峰</strong></p>
+<p>应用系统如果遇到系统请求流量的瞬间猛增，有可能会将系统压垮。有了消息队列可以将大量请求缓存起来，分散到很长一段时间处理，这样可以大大提到系统的稳定性和用户体验。</p>
+<p><img src="https://pic.imgdb.cn/item/641b07c7a682492fccfa5a90.jpg" alt="MQ流量削峰"></p>
+<p>为了保证系统的稳定性，如果系统负载超过闻值，就会阻止用户请求，这会影响用户体验，而如果使用消息队列将请求缓存起来，等待系统处理完毕后通知用户下单完毕。</p>
+<p><img src="https://pic.imgdb.cn/item/641b0aa3a682492fcc001f9f.jpg" alt="MQ流量削峰"></p>
+</li>
+<li><p><strong>数据分发</strong></p>
+<p><img src="https://pic.imgdb.cn/item/641b0d28a682492fcc0512fd.jpg" alt="MQ数据分发"></p>
+</li>
+</ul>
+<p>​			<img src="https://pic.imgdb.cn/item/641b0e69a682492fcc077584.jpg" alt="MQ数据分发"></p>
+<p>​	通过消息队列可以让数据在多个系统更加之间进行流通。数据的产方不需要关心谁来使用数据，只需要将数据发送到消息队列，数据使用方直接在消息队列中直	接获取数据即可</p>
+<h3 id="1、MQ的优缺点"><a href="#1、MQ的优缺点" class="headerlink" title="1、MQ的优缺点"></a>1、MQ的优缺点</h3><ol>
+<li><p><strong>优点:</strong> 解耦、流量削峰、数据分发</p>
+</li>
+<li><p><strong>缺点:</strong> </p>
+<ul>
+<li><p>系统的可用性降低了</p>
+<p>系统引入的外部依赖越多，系统的稳定性就越差。一旦MQ宕机，就会对业务造成影响。</p>
+<p>如何保证MQ的高可用</p>
+</li>
+<li><p>系统复杂度提高</p>
+<p>MQ的加入大大增加了系统的复杂度，以前系统间是同步的远程调用，现在是通过MQ进行异步调用。</p>
+<p>如何保证消息没有被重复消费？怎么处理消息丢失情况？怎么保证消息传递的顺序性？</p>
+</li>
+<li><p>一致性问题</p>
+<p>A系统处理完业务，通过MQ给B、C、D、三个系统发消息数据，如果B、C系统处理成功，D处理失败。</p>
+<p>如何保证消息数据处理的一致性？</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="2、各种MQ产品的比较"><a href="#2、各种MQ产品的比较" class="headerlink" title="2、各种MQ产品的比较"></a>2、各种MQ产品的比较</h3><table>
+<thead>
+<tr>
+<th align="center">特性</th>
+<th align="center">ActiveMQ</th>
+<th align="center">RabbittMQ</th>
+<th align="center">RocketMQ</th>
+<th align="center">Kafka</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">开发语言</td>
+<td align="center">Java</td>
+<td align="center">erlang</td>
+<td align="center">Java</td>
+<td align="center">scala</td>
+</tr>
+<tr>
+<td align="center">单机吞吐量</td>
+<td align="center">万级</td>
+<td align="center">万级</td>
+<td align="center">10万级</td>
+<td align="center">10万级</td>
+</tr>
+<tr>
+<td align="center">时效性</td>
+<td align="center">ms级</td>
+<td align="center">us级</td>
+<td align="center">ms级</td>
+<td align="center">ms级以内</td>
+</tr>
+<tr>
+<td align="center">可用性</td>
+<td align="center">高（主从架构）</td>
+<td align="center">高（主从架构）</td>
+<td align="center">非常高（分布式架构）</td>
+<td align="center">非常高（分布式架构）</td>
+</tr>
+<tr>
+<td align="center">功能特性</td>
+<td align="center">成熟的产品，在很多公司得到应用；有较多的文档；各种协议支持较好</td>
+<td align="center">基于erlang开发，所以并发能力很强，性能极其好，延时很低；管理界面较丰富</td>
+<td align="center">MQ功能比较完备，扩展性能佳</td>
+<td align="center">只支持主要的MQ功能，像一些消息查询，消息回溯等功能没有提供，毕竟是为大数据准备的，在大数据领域应用广</td>
+</tr>
+</tbody></table>
+<h2 id="二、RocketMQ"><a href="#二、RocketMQ" class="headerlink" title="二、RocketMQ"></a>二、RocketMQ</h2><p>RocketMQ是阿里巴巴2016年MQ中间件，作为一款纯java、分布式、队列模型的开源消息中间件，支持事务消息、顺序消息、批量消息、定时消息、消息回溯等。主要功能是异步解耦和流量削峰。在阿里内部RocketMQ承接了例如“双十一”等高并发场景的消息流转，能够处理亿万级别的消息。</p>
+<h3 id="1、安装RockeMQ"><a href="#1、安装RockeMQ" class="headerlink" title="1、安装RockeMQ"></a>1、安装RockeMQ</h3><p>​	<a target="_blank" rel="noopener" href="https://rocketmq.apache.org/download">RocketMQ下载地址</a></p>
+<h3 id="2、环境"><a href="#2、环境" class="headerlink" title="2、环境"></a>2、环境</h3><p>​	我准备的是Linux系统，JDK1.8，rocketmq-all-4.9.4-bin-release.zip</p>
+<h3 id="3、安装"><a href="#3、安装" class="headerlink" title="3、安装"></a>3、安装</h3><ul>
+<li>进入&#x2F;usr&#x2F;local&#x2F;目录下新建文件夹</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">命令：cd  /usr/local</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在该文件夹下常见一个新的文件夹</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">命令：mkdir RocketMq</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>把下载好的文件夹上传到RocketMq文件夹中</p>
+</li>
+<li><p>解压文件</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">命令：unzip 压缩包名</span><br></pre></td></tr></table></figure>
+
+<p><strong>目录介绍</strong></p>
+<ul>
+<li>bin： 启动脚本，包括shell脚本和CMD脚本</li>
+<li>conf：实例配置文件，包括broker配置文件、logback配置文件等</li>
+<li>lib：依赖jar包，包括Netty、commons-lang、fastJSON等</li>
+</ul>
+<h3 id="4、启动RocketMQ"><a href="#4、启动RocketMQ" class="headerlink" title="4、启动RocketMQ"></a>4、启动RocketMQ</h3><ol>
+<li>启动NameServer</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 1.后台启动NamesServer</span><br><span class="line">nohup sh bin/mqnamesrv &amp;</span><br><span class="line"># 2.查看日志</span><br><span class="line">tail -f ~/logs/rocketmqlogs/namesrv.log</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>启动Broker</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 1.后台启动Broker</span><br><span class="line">nohup sh bin/mqbroker -n localhost:9876 &amp;</span><br><span class="line"># 2.查看启动日志</span><br><span class="line">tail -f ~/logs/rocketmqlogs/broker.log</span><br><span class="line"></span><br><span class="line">使用 jps 命令查看是否启动该进程</span><br></pre></td></tr></table></figure>
+
+<p><strong>启动失败问题描述</strong></p>
+<p>RocketMO默认的虚拟机内存较大，启动NamesServer和Broker失败：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tail: 无法打开&quot;/root/logs/rocketmqlogs/broker.log&quot; 读取数据: 没有那个文件或目录</span><br></pre></td></tr></table></figure>
+
+<p>解决：</p>
+<p>需要编辑如下两个配置文件，修改VM内存大小</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vim runserver.sh</span><br><span class="line">vim runbroker.sh</span><br></pre></td></tr></table></figure>
+
+<p>参考设置：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">JAVA_OPT=&quot;$[JAVA_OPT&#125; -server -Xms256m -Xmx256m -Xmn128m -xx:Metaspacesize=128m -xx:MaxMetaspacesize=320m&quot;</span><br></pre></td></tr></table></figure>
+
+<p>关闭RocketMQ</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 1.关闭nameserver</span><br><span class="line">sh mqshutdown namesrv</span><br><span class="line"># 2.关闭Broker</span><br><span class="line">sh mqshutdown broker</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="三、RocketMQ集群搭建"><a href="#三、RocketMQ集群搭建" class="headerlink" title="三、RocketMQ集群搭建"></a>三、RocketMQ集群搭建</h2><p><img src="https://pic.imgdb.cn/item/641b2bc4a682492fcc42d9ea.jpg" alt="MQ集群搭建"></p>
+<p>生产者（producer）发送消息到broker，broker由nameserver去管理，所以producer首先会去询问nameServer ，然后由nameserver给producer一个消息存放的地址，然后producer根据对应的地址把消息去放到对应的broker中去</p>
+<p>消费者（consumer）消费消息时也是一样，会先去询问nameserver，获得broker的地址然后去消费消息</p>
+<h3 id="1、RocketMQ中的角色介绍"><a href="#1、RocketMQ中的角色介绍" class="headerlink" title="1、RocketMQ中的角色介绍"></a>1、RocketMQ中的角色介绍</h3><ol>
+<li>Producer：消息的发送者； 举例：发信者</li>
+<li>Consumer：消息接收者； 举例：收信者</li>
+<li>Broker：暂存和传输消息；举例：邮局</li>
+<li>NameServer：管理Broker；举例：各个邮局的管理机构</li>
+<li>Topic：区分消息的种类； 一个发送者可以发送消息给一个或者多个Topic；一个消息的接收者可以订阅一个或多个Topic消息</li>
+<li>Message Queue：相当于是Topic的分区；用于并行发送和接收消息</li>
+</ol>
+<h3 id="2、集群搭建方式"><a href="#2、集群搭建方式" class="headerlink" title="2、集群搭建方式"></a>2、集群搭建方式</h3><h4 id="1-集群的特点"><a href="#1-集群的特点" class="headerlink" title="1.集群的特点"></a>1.集群的特点</h4><ul>
+<li>NameServer是一个几乎无状态节点，可集群部署，节点之间无任何信息同步。</li>
+<li>Broker部署相对复杂，Broker分为Master与Slave，一个Master可以对应多个Slave，但是一个slave只能对应一个Master，Master与Slave的对应关系通过指定相同的BrokerName，不同的Brokerld来定义，Brokerld为0表示Master，非0表示Slave。Master也可以部署多个。每个Broker与NameServer集群中的所有节点建立长连接，定时注册Topic信息到所有NameServer。</li>
+<li>Producer与NameServer集群中的其中一个节点(随机选择)建立长连接，定期从NameServer取Topic路由信息，并向提供Top服务的Master建立长连接，且定时向Master发送心跳。Producer完全无状态，可集群部署。</li>
+<li>Consumer与NameServer集群中的其中一个节点(随机选择)建立长连接，定期从NameServer取Topic路由信息，并向提供Topic服务的Master、Slave建立长连接，且定时向Master、Slave发送心跳。Consumer既可以从Master订阅消息，也可以从slave订阅消息，订阅规则由Broker配置决定。</li>
+</ul>
+<h4 id="2-集群模式"><a href="#2-集群模式" class="headerlink" title="2.集群模式"></a>2.集群模式</h4><p>​	1）单Master模式</p>
+<p>​	这种方式风险较大，一旦Broker重启或者宕机时，会导致整个服务不可用。不建议线上环境使用,可以用于本地测试。</p>
+<p>​	2）多Master模式</p>
+<p>​	一个集群无slave，全是Master，例如2个Master或者3个Master，这种模式的优缺点如下:</p>
+<p>​		<strong>优点：</strong>配置简单，单个Master宕机或重启维护对应用无影响，在磁盘配置为RAD10时，即使机器宕机不可恢复情况下，由于RAID10磁盘非常可靠，消息也不会丢(异步刷盘丢失少量消息，同步刷盘一条不丢) ，性能最高;。</p>
+<p>​		<strong>缺点：</strong> 单台机器宕机期间，这台机器上未被消费的消息在机器恢复之前不可订阅，消息实时性会受到影响。</p>
+<p>​	3）多Master多slave模式 (异步)</p>
+<p>​	每个Master配置一个Slave，有多对Master-Slave，HA采用异步复制方式，主备有短暂消息延迟(毫秒级)，这种模式的优缺点如下：</p>
+<p>​		<strong>优点：</strong>即使磁盘损坏，消息丢失的非常少，目消息实时性不会受影响，同时Master宕机后，消费者仍然可以从Slave消费，而过程对应用透明，不需要人工千预，性能同多Master模式几乎一样;</p>
+<p>​		<strong>缺点：</strong> Master宕机，磁盘损坏情况下会丢失少量消息。</p>
+<p>​	4）多Master多Slave模式（同步）</p>
+<p>​	每个Master配置一个Slave，有多对Master-Slave，HA采用同步双写方式，即只有主备都写成功，才向应用返回成功，这种模式的缺点如下:</p>
+<p>​		<strong>优点：</strong> 数据与服务都无单点故障，Master宕机情况下，消息无延迟，服务可用性与数据可用性都非常高:</p>
+<p>​		<strong>缺点：</strong>性能比异步复制模式略低(大约低10%左右)，发送单个消息的RT会略高，且目前版本在主节点宕机后，备机不能自动切换为主机。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://Wei-MingZhi.github.io">魏铭志の博客</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wei-mingzhi.github.io/post/roketmq.html">https://wei-mingzhi.github.io/post/roketmq.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://Wei-MingZhi.github.io" target="_blank">魏铭志の博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/RocketMQ/">RocketMQ</a></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2022/06/05/629c5257753d1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/2c4772f7efc32740c3f604dd2c02823.jpg" target="_blank"><img class="post-qr-code-img" src="/img/2c4772f7efc32740c3f604dd2c02823.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/6f358cda7cb463c3f364d7309773828.jpg" target="_blank"><img class="post-qr-code-img" src="/img/6f358cda7cb463c3f364d7309773828.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/javasio.html" title="IO流"><img class="cover" src="https://bu.dusays.com/2022/05/26/628fa0426213d.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">IO流</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://pic.imgdb.cn/item/6416a424a682492fcc69a396.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">魏铭志の博客</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Wei-MingZhi"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="xpand" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div><script src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/two-people/twopeople1.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/two-people/zdog.dist.js"></script><script id="rendered-js" src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/two-people/twopeople.js"></script><style>.card-widget.card-announcement {
+margin: 0;
+align-items: center;
+justify-content: center;
+text-align: center;
+}
+canvas {
+display: block;
+margin: 0 auto;
+cursor: move;
+}</style><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RocketMQ"><span class="toc-number">1.</span> <span class="toc-text">RocketMQ</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81MQ-Message-Queue-%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.</span> <span class="toc-text">一、MQ(Message Queue)介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81MQ%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-number">1.1.1.</span> <span class="toc-text">1、MQ的优缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%90%84%E7%A7%8DMQ%E4%BA%A7%E5%93%81%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">1.1.2.</span> <span class="toc-text">2、各种MQ产品的比较</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81RocketMQ"><span class="toc-number">1.2.</span> <span class="toc-text">二、RocketMQ</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%AE%89%E8%A3%85RockeMQ"><span class="toc-number">1.2.1.</span> <span class="toc-text">1、安装RockeMQ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E7%8E%AF%E5%A2%83"><span class="toc-number">1.2.2.</span> <span class="toc-text">2、环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E5%AE%89%E8%A3%85"><span class="toc-number">1.2.3.</span> <span class="toc-text">3、安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E5%90%AF%E5%8A%A8RocketMQ"><span class="toc-number">1.2.4.</span> <span class="toc-text">4、启动RocketMQ</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81RocketMQ%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA"><span class="toc-number">1.3.</span> <span class="toc-text">三、RocketMQ集群搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81RocketMQ%E4%B8%AD%E7%9A%84%E8%A7%92%E8%89%B2%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.3.1.</span> <span class="toc-text">1、RocketMQ中的角色介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E6%96%B9%E5%BC%8F"><span class="toc-number">1.3.2.</span> <span class="toc-text">2、集群搭建方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E9%9B%86%E7%BE%A4%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">1.集群的特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">2.集群模式</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/roketmq.html" title="RocketMQ"><img src="https://bu.dusays.com/2022/06/05/629c5257753d1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RocketMQ"/></a><div class="content"><a class="title" href="/post/roketmq.html" title="RocketMQ">RocketMQ</a><time datetime="2023-03-22T17:32:54.000Z" title="发表于 2023-03-23 01:32:54">2023-03-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/javasio.html" title="IO流"><img src="https://bu.dusays.com/2022/05/26/628fa0426213d.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IO流"/></a><div class="content"><a class="title" href="/post/javasio.html" title="IO流">IO流</a><time datetime="2023-03-20T13:52:54.000Z" title="发表于 2023-03-20 21:52:54">2023-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/javasz.html" title="数组"><img src="https://bu.dusays.com/2022/05/29/62939662553c9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数组"/></a><div class="content"><a class="title" href="/post/javasz.html" title="数组">数组</a><time datetime="2023-03-20T13:52:54.000Z" title="发表于 2023-03-20 21:52:54">2023-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/javaycjz.html" title="异常机制"><img src="https://bu.dusays.com/2022/05/26/628fa0426213d.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="异常机制"/></a><div class="content"><a class="title" href="/post/javaycjz.html" title="异常机制">异常机制</a><time datetime="2023-03-20T13:52:54.000Z" title="发表于 2023-03-20 21:52:54">2023-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/javakzyj.html" title="控制语句"><img src="https://bu.dusays.com/2022/05/29/62939662553c9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="控制语句"/></a><div class="content"><a class="title" href="/post/javakzyj.html" title="控制语句">控制语句</a><time datetime="2023-03-20T13:52:54.000Z" title="发表于 2023-03-20 21:52:54">2023-03-20</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://pic.imgdb.cn/item/64172d88a682492fcc670e1b.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023  <i id="heartbeat" class="fa fas fa-heartbeat"></i> 魏铭志の博客</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/HCLonely/images@master/others/heartbeat.min.css"></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><div class="aplayer no-destroy" data-id="7427714271" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-lrctype="1" data-preload="none" data-autoplay="true" muted></div><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script data-pjax defer src="https://npm.elemecdn.com/tzy-blog/lib/js/theme/chocolate.js"></script><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script><script defer src="/js/custom.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer data-pjax src="/js/cat.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></body></html>

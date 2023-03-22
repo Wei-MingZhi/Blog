@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>RocketMQ</title>
+      <link href="/post/roketmq.html"/>
+      <url>/post/roketmq.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h1><h2 id="一、MQ-Message-Queue-介绍"><a href="#一、MQ-Message-Queue-介绍" class="headerlink" title="一、MQ(Message Queue)介绍"></a>一、MQ(Message Queue)介绍</h2><p><strong>MQ</strong>（Message Queue）消息队列，是基础数据结构中**”先进先出”**的一种数据结构。一般用来解决应用解耦，异步消息，流量削峰等问题，实现高性能，高可用，可伸缩和最终一致性架构。</p><p>其主要场景主要包含一下三个方面</p><ul><li><p><strong>应用解耦</strong></p><p>系统的耦合性越高，容错性就越低。</p><p><img src="https://pic.imgdb.cn/item/641b0421a682492fccf143f9.jpg" alt="MQ应用解耦"></p></li></ul><p>​<img src="https://pic.imgdb.cn/item/641b049ba682492fccf25deb.jpg" alt="MQ应用解耦"></p><ul><li><p><strong>流量削峰</strong></p><p>应用系统如果遇到系统请求流量的瞬间猛增，有可能会将系统压垮。有了消息队列可以将大量请求缓存起来，分散到很长一段时间处理，这样可以大大提到系统的稳定性和用户体验。</p><p><img src="https://pic.imgdb.cn/item/641b07c7a682492fccfa5a90.jpg" alt="MQ流量削峰"></p><p>为了保证系统的稳定性，如果系统负载超过闻值，就会阻止用户请求，这会影响用户体验，而如果使用消息队列将请求缓存起来，等待系统处理完毕后通知用户下单完毕。</p><p><img src="https://pic.imgdb.cn/item/641b0aa3a682492fcc001f9f.jpg" alt="MQ流量削峰"></p></li><li><p><strong>数据分发</strong></p><p><img src="https://pic.imgdb.cn/item/641b0d28a682492fcc0512fd.jpg" alt="MQ数据分发"></p></li></ul><p>​<img src="https://pic.imgdb.cn/item/641b0e69a682492fcc077584.jpg" alt="MQ数据分发"></p><p>​通过消息队列可以让数据在多个系统更加之间进行流通。数据的产方不需要关心谁来使用数据，只需要将数据发送到消息队列，数据使用方直接在消息队列中直接获取数据即可</p><h3 id="1、MQ的优缺点"><a href="#1、MQ的优缺点" class="headerlink" title="1、MQ的优缺点"></a>1、MQ的优缺点</h3><ol><li><p><strong>优点:</strong> 解耦、流量削峰、数据分发</p></li><li><p><strong>缺点:</strong> </p><ul><li><p>系统的可用性降低了</p><p>系统引入的外部依赖越多，系统的稳定性就越差。一旦MQ宕机，就会对业务造成影响。</p><p>如何保证MQ的高可用</p></li><li><p>系统复杂度提高</p><p>MQ的加入大大增加了系统的复杂度，以前系统间是同步的远程调用，现在是通过MQ进行异步调用。</p><p>如何保证消息没有被重复消费？怎么处理消息丢失情况？怎么保证消息传递的顺序性？</p></li><li><p>一致性问题</p><p>A系统处理完业务，通过MQ给B、C、D、三个系统发消息数据，如果B、C系统处理成功，D处理失败。</p><p>如何保证消息数据处理的一致性？</p></li></ul></li></ol><h3 id="2、各种MQ产品的比较"><a href="#2、各种MQ产品的比较" class="headerlink" title="2、各种MQ产品的比较"></a>2、各种MQ产品的比较</h3><table><thead><tr><th align="center">特性</th><th align="center">ActiveMQ</th><th align="center">RabbittMQ</th><th align="center">RocketMQ</th><th align="center">Kafka</th></tr></thead><tbody><tr><td align="center">开发语言</td><td align="center">Java</td><td align="center">erlang</td><td align="center">Java</td><td align="center">scala</td></tr><tr><td align="center">单机吞吐量</td><td align="center">万级</td><td align="center">万级</td><td align="center">10万级</td><td align="center">10万级</td></tr><tr><td align="center">时效性</td><td align="center">ms级</td><td align="center">us级</td><td align="center">ms级</td><td align="center">ms级以内</td></tr><tr><td align="center">可用性</td><td align="center">高（主从架构）</td><td align="center">高（主从架构）</td><td align="center">非常高（分布式架构）</td><td align="center">非常高（分布式架构）</td></tr><tr><td align="center">功能特性</td><td align="center">成熟的产品，在很多公司得到应用；有较多的文档；各种协议支持较好</td><td align="center">基于erlang开发，所以并发能力很强，性能极其好，延时很低；管理界面较丰富</td><td align="center">MQ功能比较完备，扩展性能佳</td><td align="center">只支持主要的MQ功能，像一些消息查询，消息回溯等功能没有提供，毕竟是为大数据准备的，在大数据领域应用广</td></tr></tbody></table><h2 id="二、RocketMQ"><a href="#二、RocketMQ" class="headerlink" title="二、RocketMQ"></a>二、RocketMQ</h2><p>RocketMQ是阿里巴巴2016年MQ中间件，作为一款纯java、分布式、队列模型的开源消息中间件，支持事务消息、顺序消息、批量消息、定时消息、消息回溯等。主要功能是异步解耦和流量削峰。在阿里内部RocketMQ承接了例如“双十一”等高并发场景的消息流转，能够处理亿万级别的消息。</p><h3 id="1、安装RockeMQ"><a href="#1、安装RockeMQ" class="headerlink" title="1、安装RockeMQ"></a>1、安装RockeMQ</h3><p>​<a href="https://rocketmq.apache.org/download">RocketMQ下载地址</a></p><h3 id="2、环境"><a href="#2、环境" class="headerlink" title="2、环境"></a>2、环境</h3><p>​我准备的是Linux系统，JDK1.8，rocketmq-all-4.9.4-bin-release.zip</p><h3 id="3、安装"><a href="#3、安装" class="headerlink" title="3、安装"></a>3、安装</h3><ul><li>进入&#x2F;usr&#x2F;local&#x2F;目录下新建文件夹</li></ul><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">命令：cd  /usr/local</span><br></pre></td></tr></table></figure><ul><li>在该文件夹下常见一个新的文件夹</li></ul><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">命令：mkdir RocketMq</span><br></pre></td></tr></table></figure><ul><li><p>把下载好的文件夹上传到RocketMq文件夹中</p></li><li><p>解压文件</p></li></ul><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">命令：unzip 压缩包名</span><br></pre></td></tr></table></figure><p><strong>目录介绍</strong></p><ul><li>bin： 启动脚本，包括shell脚本和CMD脚本</li><li>conf：实例配置文件，包括broker配置文件、logback配置文件等</li><li>lib：依赖jar包，包括Netty、commons-lang、fastJSON等</li></ul><h3 id="4、启动RocketMQ"><a href="#4、启动RocketMQ" class="headerlink" title="4、启动RocketMQ"></a>4、启动RocketMQ</h3><ol><li>启动NameServer</li></ol><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 1.后台启动NamesServer</span><br><span class="line">nohup sh bin/mqnamesrv &amp;</span><br><span class="line"># 2.查看日志</span><br><span class="line">tail -f ~/logs/rocketmqlogs/namesrv.log</span><br></pre></td></tr></table></figure><ol start="2"><li>启动Broker</li></ol><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 1.后台启动Broker</span><br><span class="line">nohup sh bin/mqbroker -n localhost:9876 &amp;</span><br><span class="line"># 2.查看启动日志</span><br><span class="line">tail -f ~/logs/rocketmqlogs/broker.log</span><br><span class="line"></span><br><span class="line">使用 jps 命令查看是否启动该进程</span><br></pre></td></tr></table></figure><p><strong>启动失败问题描述</strong></p><p>RocketMO默认的虚拟机内存较大，启动NamesServer和Broker失败：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tail: 无法打开&quot;/root/logs/rocketmqlogs/broker.log&quot; 读取数据: 没有那个文件或目录</span><br></pre></td></tr></table></figure><p>解决：</p><p>需要编辑如下两个配置文件，修改VM内存大小</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vim runserver.sh</span><br><span class="line">vim runbroker.sh</span><br></pre></td></tr></table></figure><p>参考设置：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">JAVA_OPT=&quot;$[JAVA_OPT&#125; -server -Xms256m -Xmx256m -Xmn128m -xx:Metaspacesize=128m -xx:MaxMetaspacesize=320m&quot;</span><br></pre></td></tr></table></figure><p>关闭RocketMQ</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 1.关闭nameserver</span><br><span class="line">sh mqshutdown namesrv</span><br><span class="line"># 2.关闭Broker</span><br><span class="line">sh mqshutdown broker</span><br></pre></td></tr></table></figure><h2 id="三、RocketMQ集群搭建"><a href="#三、RocketMQ集群搭建" class="headerlink" title="三、RocketMQ集群搭建"></a>三、RocketMQ集群搭建</h2><p><img src="https://pic.imgdb.cn/item/641b2bc4a682492fcc42d9ea.jpg" alt="MQ集群搭建"></p><p>生产者（producer）发送消息到broker，broker由nameserver去管理，所以producer首先会去询问nameServer ，然后由nameserver给producer一个消息存放的地址，然后producer根据对应的地址把消息去放到对应的broker中去</p><p>消费者（consumer）消费消息时也是一样，会先去询问nameserver，获得broker的地址然后去消费消息</p><h3 id="1、RocketMQ中的角色介绍"><a href="#1、RocketMQ中的角色介绍" class="headerlink" title="1、RocketMQ中的角色介绍"></a>1、RocketMQ中的角色介绍</h3><ol><li>Producer：消息的发送者； 举例：发信者</li><li>Consumer：消息接收者； 举例：收信者</li><li>Broker：暂存和传输消息；举例：邮局</li><li>NameServer：管理Broker；举例：各个邮局的管理机构</li><li>Topic：区分消息的种类； 一个发送者可以发送消息给一个或者多个Topic；一个消息的接收者可以订阅一个或多个Topic消息</li><li>Message Queue：相当于是Topic的分区；用于并行发送和接收消息</li></ol><h3 id="2、集群搭建方式"><a href="#2、集群搭建方式" class="headerlink" title="2、集群搭建方式"></a>2、集群搭建方式</h3><h4 id="1-集群的特点"><a href="#1-集群的特点" class="headerlink" title="1.集群的特点"></a>1.集群的特点</h4><ul><li>NameServer是一个几乎无状态节点，可集群部署，节点之间无任何信息同步。</li><li>Broker部署相对复杂，Broker分为Master与Slave，一个Master可以对应多个Slave，但是一个slave只能对应一个Master，Master与Slave的对应关系通过指定相同的BrokerName，不同的Brokerld来定义，Brokerld为0表示Master，非0表示Slave。Master也可以部署多个。每个Broker与NameServer集群中的所有节点建立长连接，定时注册Topic信息到所有NameServer。</li><li>Producer与NameServer集群中的其中一个节点(随机选择)建立长连接，定期从NameServer取Topic路由信息，并向提供Top服务的Master建立长连接，且定时向Master发送心跳。Producer完全无状态，可集群部署。</li><li>Consumer与NameServer集群中的其中一个节点(随机选择)建立长连接，定期从NameServer取Topic路由信息，并向提供Topic服务的Master、Slave建立长连接，且定时向Master、Slave发送心跳。Consumer既可以从Master订阅消息，也可以从slave订阅消息，订阅规则由Broker配置决定。</li></ul><h4 id="2-集群模式"><a href="#2-集群模式" class="headerlink" title="2.集群模式"></a>2.集群模式</h4><p>​1）单Master模式</p><p>​这种方式风险较大，一旦Broker重启或者宕机时，会导致整个服务不可用。不建议线上环境使用,可以用于本地测试。</p><p>​2）多Master模式</p><p>​一个集群无slave，全是Master，例如2个Master或者3个Master，这种模式的优缺点如下:</p><p>​<strong>优点：</strong>配置简单，单个Master宕机或重启维护对应用无影响，在磁盘配置为RAD10时，即使机器宕机不可恢复情况下，由于RAID10磁盘非常可靠，消息也不会丢(异步刷盘丢失少量消息，同步刷盘一条不丢) ，性能最高;。</p><p>​<strong>缺点：</strong> 单台机器宕机期间，这台机器上未被消费的消息在机器恢复之前不可订阅，消息实时性会受到影响。</p><p>​3）多Master多slave模式 (异步)</p><p>​每个Master配置一个Slave，有多对Master-Slave，HA采用异步复制方式，主备有短暂消息延迟(毫秒级)，这种模式的优缺点如下：</p><p>​<strong>优点：</strong>即使磁盘损坏，消息丢失的非常少，目消息实时性不会受影响，同时Master宕机后，消费者仍然可以从Slave消费，而过程对应用透明，不需要人工千预，性能同多Master模式几乎一样;</p><p>​<strong>缺点：</strong> Master宕机，磁盘损坏情况下会丢失少量消息。</p><p>​4）多Master多Slave模式（同步）</p><p>​每个Master配置一个Slave，有多对Master-Slave，HA采用同步双写方式，即只有主备都写成功，才向应用返回成功，这种模式的缺点如下:</p><p>​<strong>优点：</strong> 数据与服务都无单点故障，Master宕机情况下，消息无延迟，服务可用性与数据可用性都非常高:</p><p>​<strong>缺点：</strong>性能比异步复制模式略低(大约低10%左右)，发送单个消息的RT会略高，且目前版本在主节点宕机后，备机不能自动切换为主机。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> MQ </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> RocketMQ </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>IO流</title>
+      <link href="/post/javasio.html"/>
+      <url>/post/javasio.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IO </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>数组</title>
       <link href="/post/javasz.html"/>
       <url>/post/javasz.html</url>
@@ -46,31 +96,6 @@
         <tags>
             
             <tag> 异常 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>IO流</title>
-      <link href="/post/javasio.html"/>
-      <url>/post/javasio.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> Java </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> IO </tag>
             
         </tags>
       
@@ -179,31 +204,6 @@
     
     
     <entry>
-      <title>网络编程</title>
-      <link href="/post/javawlbc.html"/>
-      <url>/post/javawlbc.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> Java </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 网络编程 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>多线程和并发编程</title>
       <link href="/post/javaxc.html"/>
       <url>/post/javaxc.html</url>
@@ -221,6 +221,31 @@
         <tags>
             
             <tag> 线程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>网络编程</title>
+      <link href="/post/javawlbc.html"/>
+      <url>/post/javawlbc.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络编程 </tag>
             
         </tags>
       
@@ -254,11 +279,11 @@
     
     
     <entry>
-      <title>Java中的常用类</title>
+      <title>内部类和常用类</title>
       <link href="/post/javacgyl.html"/>
       <url>/post/javacgyl.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<h1 id="内部类和常用类"><a href="#内部类和常用类" class="headerlink" title="内部类和常用类"></a>内部类和常用类</h1><h2 id="一、内部类"><a href="#一、内部类" class="headerlink" title="一、内部类"></a>一、内部类</h2><p>内部类可以分为：</p><ol><li>成员内部类</li><li>静态内部类</li><li>局部内部类</li><li>匿名内部类</li></ol>]]></content>
       
       
       <categories>
@@ -270,7 +295,7 @@
       
         <tags>
             
-            <tag> 常用类 </tag>
+            <tag> 类 </tag>
             
         </tags>
       
@@ -296,6 +321,31 @@
         <tags>
             
             <tag> 集合 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Redis</title>
+      <link href="/post/javaredis.html"/>
+      <url>/post/javaredis.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><h3 id="1、Redis简介"><a href="#1、Redis简介" class="headerlink" title="1、Redis简介"></a>1、Redis简介</h3><p>Redis 是完全开源的，遵守 BSD 协议，是一个高性能的 key-value 数据库。</p><p>Redis 与其他 key - value 缓存产品有以下三个特点：</p><ul><li>Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。</li><li>Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。</li><li>Redis支持数据的备份，即master-slave模式的数据备份。</li></ul><h3 id="2、Redis优势"><a href="#2、Redis优势" class="headerlink" title="2、Redis优势"></a>2、Redis优势</h3><ul><li>性能极高 – Redis能读的速度是110000次&#x2F;s,写的速度是81000次&#x2F;s 。</li><li>丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。</li><li>原子 – Redis的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务，即原子性，通过MULTI和EXEC指令包起来。</li><li>丰富的特性 – Redis还支持 publish&#x2F;subscribe, 通知, key 过期等等特性。</li></ul><h3 id="3、Redis与其他key-value存储有什么不同？"><a href="#3、Redis与其他key-value存储有什么不同？" class="headerlink" title="3、Redis与其他key-value存储有什么不同？"></a>3、Redis与其他key-value存储有什么不同？</h3><ul><li>Redis有着更为复杂的数据结构并且提供对他们的原子性操作，这是一个不同于其他数据库的进化路径。Redis的数据类型都是基于基本数据结构的同时对程序员透明，无需进行额外的抽象。</li><li>Redis运行在内存中但是可以持久化到磁盘，所以在对不同数据集进行高速读写时需要权衡内存，因为数据量不能大于硬件内存。在内存数据库方面的另一个优点是，相比在磁盘上相同的复杂的数据结构，在内存中操作起来非常简单，这样Redis可以做很多内部复杂性很强的事情。同时，在磁盘格式方面他们是紧凑的以追加的方式产生的，因为他们并不需要进行随机访问。</li></ul><h2 id="二、Redis的数据结构"><a href="#二、Redis的数据结构" class="headerlink" title="二、Redis的数据结构"></a>二、Redis的数据结构</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> redis </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Redis </tag>
             
         </tags>
       
